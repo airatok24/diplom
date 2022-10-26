@@ -3,21 +3,11 @@ services:
   postgres:
     image: postgres:alpine
     restart: always
-    env_file:
-      - src/.env
+    environment:
+      - POSTGRES_USER=airat
+      - POSTGRES_PASSWORD=1e2r3Tb7$
+      - POSTGRES_DB=todo_db
     ports:
       - '5432:5432'
     volumes:
-      - pg_data_todolist:/var/lib/postgres/data
-    healthcheck:
-      test: pg_isready -U postgres
-      interval: 5s
-      timeout: 3s
-      retries: 3
-
-volumes:
-  pg_data_todolist:
-
-networks:
-  backend_nw:
-    driver: bridge
+      - ./db_data/:/var/lib/postgres/data
